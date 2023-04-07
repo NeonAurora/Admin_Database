@@ -2,7 +2,7 @@ require("dotenv").config(); // checked
 const express = require("express"); // will be here
 const bodyParser = require("body-parser");
 const cors = require("cors"); // will be here
-const apiRoutes = require("./routes/overallstatsRoutes"); // Import and use API routes //will be here
+const apiRoutes = require("./routes/overallStatsRoutes"); // Import and use API routes //will be here
 // const mongoose = require("mongoose"); // checked
 const connectDB = require("./config/database");
 

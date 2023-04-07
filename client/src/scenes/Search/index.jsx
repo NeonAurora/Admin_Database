@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DisplayForm from "components/DisplayForm";
 
-const API_URL = "http://localhost:5001/api/overallstats/search";
+const API_URL = "http://localhost:5001/api/overallStats/search";
 
 const SearchPage = () => {
   const [documentId, setDocumentId] = useState("");

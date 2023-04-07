@@ -9,7 +9,7 @@ const DeletePage = () => {
     e.preventDefault();
     try {
       const res = await axios.delete(
-        `http://localhost:5001/api/overallstats/delete/${_id}`
+        `http://localhost:5001/api/overallStats/delete/${_id}`
       );
       setMessage(res.data.message);
     } catch (error) {

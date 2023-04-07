@@ -6,7 +6,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useTheme } from "@mui/system";
 // import "../../App.css";
 
-const API_URL = "http://localhost:5001/api/overallstats/add";
+const API_URL = "http://localhost:5001/api/overallStats/add";
 
 const InsertionPage = () => {
   const [categories, setCategories] = useState(

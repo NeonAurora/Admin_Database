@@ -1,15 +1,20 @@
 import React, { useEffect } from "react";
+import { Route, Routes, Outlet } from "react-router-dom";
+import TransactionsInsertion from "scenes/TransactionsInsertion";
+import TransactionsSearch from "scenes/TransactionsSearch";
+import TransactionsDelete from "scenes/TransactionsDelete";
 
-const Transaction = () => {
-  useEffect(() => {
-    console.log("Transaction component mounted");
-  }, []);
-
+function Transactions() {
   return (
-    <div style={{ border: "1px solid green", backgroundColor: "lightyellow" }}>
-      Transaction
+    <div>
+      <h1>Transactions</h1>
+      <Routes>
+        <Route path="/" element={<div>Please Select a subpage from navbar</div>} />
+        <Route path="insertion" element={<TransactionsInsertion />} />
+        <Route path="search" element={<TransactionsSearch />} />
+        <Route path="deletion" element={<TransactionsDelete />} />
+      </Routes>
     </div>
-  );
-};
-
-export default Transaction;
+  )
+}
+export default Transactions;

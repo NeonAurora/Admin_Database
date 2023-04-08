@@ -1,15 +1,21 @@
-import React, { useEffect } from "react";
+import { Route, Routes, Outlet } from "react-router-dom";
+import OverallStatsInsertion from "scenes/OverallStatsInsertion";
+import OverallStatsSearch from "scenes/OverallStatsSearch";
+import OverallStatsDeletion from "scenes/OverallStatsDeletion";
 
-const OverallStat = () => {
-  useEffect(() => {
-    console.log("OverallStat component mounted");
-  }, []);
-
+function OverallStats() {
   return (
-    <div style={{ border: "1px solid red", backgroundColor: "lightblue" }}>
-      OverallStat
+    <div>
+      <h1>Overall Stats</h1>
+      <Routes>
+        <Route path="/" element={<div>Please select a subpage from the navbar.</div>} />
+        <Route path="insertion" element={<OverallStatsInsertion />} />
+        <Route path="search" element={<OverallStatsSearch />} />
+        <Route path="deletion" element={<OverallStatsDeletion />} />
+      </Routes>
+      <Outlet />
     </div>
   );
-};
+}
 
-export default OverallStat;
+export default OverallStats;

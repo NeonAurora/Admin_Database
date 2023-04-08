@@ -1,5 +1,9 @@
-import React from "react";
-import { AppBar, Toolbar, Typography, Box } from "@mui/material";
+// Navbar.jsx
+import { Link } from "react-router-dom";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 function Navbar() {
   return (
@@ -9,15 +13,30 @@ function Navbar() {
           Navbar
         </Typography>
         <Box sx={{ display: "flex", justifyContent: "flex-end", width: "50%" }}>
-          <Typography variant="body1" sx={{ marginRight: 2 }}>
-            Link 1
-          </Typography>
-          <Typography variant="body1" sx={{ marginRight: 2 }}>
-            Link 2
-          </Typography>
-          <Typography variant="body1" sx={{ marginRight: 2 }}>
-            Link 3
-          </Typography>
+          <Link
+            to="/overallStats/insertion"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <Typography variant="body1" sx={{ marginRight: 2 }}>
+              Insertion
+            </Typography>
+          </Link>
+          <Link
+            to="/overallStats/search"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <Typography variant="body1" sx={{ marginRight: 2 }}>
+              Search
+            </Typography>
+          </Link>
+          <Link
+            to="/overallStats/deletion"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <Typography variant="body1" sx={{ marginRight: 2 }}>
+              Deletion
+            </Typography>
+          </Link>
         </Box>
       </Toolbar>
     </AppBar>

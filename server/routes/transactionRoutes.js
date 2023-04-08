@@ -12,6 +12,18 @@ router.post("/add", async (req, res) => {
   }
 });
 
+router.get("/search/:id", async (req, res) => {
+  try {
+    const transaction = await Transaction.findById(req.params.id);
+    if (!transaction) {
+      return res.status(404).json({ message: "Transaction not found" });
+    }
+    res.json(transaction);
+  } catch (error) {
+    res.status(500).json({ message: "Error: " + error });
+  }
+});
+
 router.delete("/delete/:_id", async (req, res) => {
   try {
     const data = await Transaction.findByIdAndDelete(req.params.id);

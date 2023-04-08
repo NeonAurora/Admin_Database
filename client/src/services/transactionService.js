@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/transactions";
+const API_URL = "http://localhost:5001/api/transactions";
 
 const addTransaction = async (transactionData) => {
   return axios.post(`${API_URL}/add`, transactionData);

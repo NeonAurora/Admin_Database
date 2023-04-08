@@ -3,9 +3,6 @@ import {
   BrowserRouter,
   Route,
   Routes,
-  Link,
-  Navigate,
-  Router,
   Outlet,
 } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
@@ -16,7 +13,6 @@ import TransactionPage from "scenes/Transactions";
 import Layout from "scenes/Layout";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
   const mode = useSelector((state) => state.global.mode);
   const theme = customTheme(mode);
   return (
@@ -24,30 +20,11 @@ function App() {
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <Routes>
-            <Route
-              path="/"
-              element={
-                <Layout>
-                  <Navigate to="/overallStats" replace />
-                </Layout>
-              }
-            />
-            <Route
-              path="/overallStats"
-              element={
-                <Layout>
-                  <OverallStatPage />
-                </Layout>
-              }
-            />
-            <Route
-              path="/transactions"
-              element={
-                <Layout>
-                  <TransactionPage />
-                </Layout>
-              }
-            />
+            <Route path="/" element={<Layout />}>
+              <Route index element={<OverallStatPage />} />
+              <Route path="/overallstats" element={<OverallStatPage />} />
+              <Route path="/transactions" element={<TransactionPage />} />
+            </Route>
             {/* Add your other routes here */}
           </Routes>
         </ThemeProvider>

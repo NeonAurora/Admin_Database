@@ -4,9 +4,7 @@ import MonthEntry from "components/MonthEntry";
 import DailyEntry from "components/DailyEntry";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useTheme } from "@mui/system";
-// import "../../App.css";
-
-const API_URL = "http://localhost:5001/api/overallStats/add";
+import { addOverallStat } from "services/overallStatService";
 
 const OverallStatsInsertion = () => {
   const [categories, setCategories] = useState(
@@ -28,9 +26,7 @@ const OverallStatsInsertion = () => {
   const [yearlySalesTotal, setYearlySalesTotal] = useState("");
   const [yearlyTotalSoldUnits, setYearlyTotalSoldUnits] = useState("");
   const [year, setYear] = useState("");
-  // const [monthData, setMonthData] = useState(
-  //   Array(12).fill({ month: "", totalSales: "", totalUnits: "" })
-  // );
+
 
   const createCategoryEntry = () => {
     const entry = {
@@ -63,52 +59,6 @@ const OverallStatsInsertion = () => {
     setCategories((prevCategories) =>
       prevCategories.filter((_, i) => i !== index)
     );
-  };
-
-  const submitForm = async (e) => {
-    e.preventDefault();
-
-    const formData = (id) => document.getElementById(id).value;
-    const fromQuery = (selector, mapper) =>
-      Array.from(document.querySelectorAll(selector)).map(mapper);
-
-    const data = {
-      totalCustomers: formData("total-customers"),
-      yearlySalesTotal: formData("yearly-sales-total"),
-      yearlyTotalSoldUnits: formData("yearly-total-sold-units"),
-      year: formData("year"),
-      monthlyData: fromQuery("#monthly-data .month-entry", (entry) => ({
-        month: entry.querySelector(".month").value,
-        totalSales: parseFloat(entry.querySelector(".total-sales").value),
-        totalUnits: parseInt(entry.querySelector(".total-units").value),
-      })),
-      dailyData: Array.from(
-        document.querySelectorAll("#daily-data .daily-entry")
-      ).map((entry) => ({
-        date: entry.querySelector(".date").value,
-        totalSales: parseFloat(entry.querySelector(".total-sales").value),
-        totalUnits: parseInt(entry.querySelector(".total-units").value),
-      })),
-      salesByCategory: Object.fromEntries(
-        fromQuery("#sales-by-category .category-entry", (entry) => [
-          entry.querySelector(".category").value,
-          parseFloat(entry.querySelector(".sales").value),
-        ])
-      ),
-    };
-
-    try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      response.ok
-        ? alert("Data submitted successfully")
-        : alert("Error submitting data: " + (await response.json()).message);
-    } catch (error) {
-      alert("Error submitting data: " + error.message);
-    }
   };
 
   const [monthlyData, setMonthlyData] = useState(
@@ -150,31 +100,6 @@ const OverallStatsInsertion = () => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-  // const getRandomDate = (year) => {
-  //   const start = new Date(year, 0, 1);
-  //   const end = new Date(year, 11, 31);
-  //   return new Date(
-  //     start.getTime() + Math.random() * (end.getTime() - start.getTime())
-  //   );
-  // };
-
-  // const getRandomMonth = () => {
-  //   const months = [
-  //     "January",
-  //     "February",
-  //     "March",
-  //     "April",
-  //     "May",
-  //     "June",
-  //     "July",
-  //     "August",
-  //     "September",
-  //     "October",
-  //     "November",
-  //     "December",
-  //   ];
-  //   return months[getRandomInt(0, 11)];
-  // };
 
   const handleEntryTest = () => {
     setTotalCustomers(getRandomInt(1, 1000));
@@ -253,14 +178,8 @@ const OverallStatsInsertion = () => {
     };
 
     try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      response.ok
-        ? alert("Data submitted successfully")
-        : alert("Error submitting data: " + (await response.json()).message);
+      await addOverallStat(data);
+      alert("Data submitted successfully");
     } catch (error) {
       alert("Error submitting data: " + error.message);
     }

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import DisplayForm from "components/DisplayForm";
-
-const API_URL = "http://localhost:5001/api/overallStats/search";
+import overallStatService from "services/overallStatService";
 
 const OverallStatsSearch = () => {
   const [documentId, setDocumentId] = useState("");
@@ -13,8 +12,8 @@ const OverallStatsSearch = () => {
     setError("");
 
     try {
-      const response = await fetch(`${API_URL}/${documentId}`);
-      const data = await response.json();
+      const response = await overallStatService.searchOverallStat(documentId);
+      const data = response.data;
       setDocumentData(data);
     } catch (error) {
       setDocumentData(null);

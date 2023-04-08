@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import overallStatService from "services/overallStatService";
 
 const OverallStatsDeletion = () => {
   const [_id, setId] = useState("");
@@ -8,9 +8,7 @@ const OverallStatsDeletion = () => {
   const onDelete = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.delete(
-        `http://localhost:5001/api/overallStats/delete/${_id}`
-      );
+      const res = await overallStatService.deleteOverallStat(_id);
       setMessage(res.data.message);
     } catch (error) {
       setMessage("Error deleting data");

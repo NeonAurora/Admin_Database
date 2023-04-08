@@ -4,7 +4,8 @@ import MonthEntry from "components/MonthEntry";
 import DailyEntry from "components/DailyEntry";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useTheme } from "@mui/system";
-import { addOverallStat } from "services/overallStatService";
+import overallStatService from "services/overallStatService";
+
 
 const OverallStatsInsertion = () => {
   const [categories, setCategories] = useState(
@@ -178,11 +179,12 @@ const OverallStatsInsertion = () => {
     };
 
     try {
-      await addOverallStat(data);
+      await overallStatService.addOverallStat(data);
       alert("Data submitted successfully");
     } catch (error) {
       alert("Error submitting data: " + error.message);
     }
+    
   };
 
   return (

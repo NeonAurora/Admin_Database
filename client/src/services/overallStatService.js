@@ -1,20 +1,21 @@
+import axios from "axios";
+
 const API_URL = "http://localhost:5001/api/overallStats";
 
-export const addOverallStat = async (data) => {
-  try {
-    const response = await fetch(`${API_URL}/add`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || "Error submitting data");
-    }
-    return await response.json();
-  } catch (error) {
-    throw error;
-  }
+const addOverallStat = async (data) => {
+  return axios.post(`${API_URL}/add`, data);
 };
 
-// Add more functions to interact with the API as needed (e.g., getOverallStat, updateOverallStat, deleteOverallStat)
+const searchOverallStat = async (documentId) => {
+  return axios.get(`${API_URL}/search/${documentId}`);
+};
+
+const deleteOverallStat = async (documentId) => {
+  return axios.delete(`${API_URL}/delete/${documentId}`);
+};
+
+export default {
+  addOverallStat,
+  searchOverallStat,
+  deleteOverallStat,
+};

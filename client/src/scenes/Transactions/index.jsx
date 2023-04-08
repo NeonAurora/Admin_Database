@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const Transaction = () => {
-  return <div>Transaction</div>;
+  useEffect(() => {
+    console.log("Transaction component mounted");
+  }, []);
+
+  return (
+    <div style={{ border: "1px solid green", backgroundColor: "lightyellow" }}>
+      Transaction
+    </div>
+  );
 };
 
 export default Transaction;

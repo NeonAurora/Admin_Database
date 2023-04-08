@@ -6,11 +6,9 @@ import {
   Link,
   Navigate,
   Router,
+  Outlet,
 } from "react-router-dom";
-import InsertionPage from "scenes/Insertion";
-import SearchPage from "scenes/Search";
-import DeletePage from "scenes/Delete";
-import { ThemeProvider, createTheme } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";
 import customTheme from "theme";
 import OverallStatPage from "scenes/OverallStats";
@@ -26,12 +24,31 @@ function App() {
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <Routes>
-            <Route path="/" element={<Navigate to="/overallStats" replace />} />
-            <Route element={<Layout />}>
-              <Route path="/overallStats" element={<OverallStatPage />} />
-              <Route path="/transactions" element={<TransactionPage />} />
-              {/* Add your other routes here */}
-            </Route>
+            <Route
+              path="/"
+              element={
+                <Layout>
+                  <Navigate to="/overallStats" replace />
+                </Layout>
+              }
+            />
+            <Route
+              path="/overallStats"
+              element={
+                <Layout>
+                  <OverallStatPage />
+                </Layout>
+              }
+            />
+            <Route
+              path="/transactions"
+              element={
+                <Layout>
+                  <TransactionPage />
+                </Layout>
+              }
+            />
+            {/* Add your other routes here */}
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

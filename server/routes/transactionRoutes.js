@@ -24,7 +24,7 @@ router.get("/search/:id", async (req, res) => {
   }
 });
 
-router.delete("/delete/:_id", async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   try {
     const data = await Transaction.findByIdAndDelete(req.params.id);
 
@@ -40,4 +40,3 @@ router.delete("/delete/:_id", async (req, res) => {
 });
 
 module.exports = router;
-

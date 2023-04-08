@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";
 import customTheme from "theme";
@@ -17,14 +17,14 @@ function App() {
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <SubpageContext.Provider value={{ activeSubpage, setActiveSubpage }}>
-            <Routes>
-              <Route path="/" element={<Layout />}>
+            <Layout>
+              <Routes>
                 <Route index element={<OverallStatPage />} />
                 <Route path="/overallStats/*" element={<OverallStatPage />} />
                 <Route path="/transactions" element={<TransactionPage />} />
-              </Route>
-              {/* Add your other routes here */}
-            </Routes>
+                {/* Add your other routes here */}
+              </Routes>
+            </Layout>
           </SubpageContext.Provider>
         </ThemeProvider>
       </BrowserRouter>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import TransactionSearchForm from "components/TransactionSearchForm";
-
-const API_URL = "http://localhost:5001/api/transactions/search";
+import transactionService from "services/transactionService";
 
 const TransactionSearch = () => {
   const [transactionId, setTransactionId] = useState("");
@@ -13,9 +12,10 @@ const TransactionSearch = () => {
     setError("");
 
     try {
-      const response = await fetch(`${API_URL}/${transactionId}`);
-      const data = await response.json();
-      setTransactionData(data);
+      const response = await transactionService.searchTransaction(
+        transactionId
+      );
+      setTransactionData(response.data);
     } catch (error) {
       setTransactionData(null);
       setError("Error: Transaction not found");

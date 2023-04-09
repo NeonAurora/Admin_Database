@@ -17,17 +17,21 @@ const upload = multer({ storage });
 router.post("/add", upload.single("audio"), async (req, res) => {
   try {
     const audioMetadata = {
+      fileUrl: req.file.path,
       title: req.body.title,
       duration: req.body.duration,
-      format: req.file.mimetype,
+      format: req.body.format,
       bitrate: req.body.bitrate,
       sampleRate: req.body.sampleRate,
       channels: req.body.channels,
-      fileSize: req.file.size,
-      fileUrl: req.file.path,
+      fileSize: req.body.fileSize,
     };
 
-    const newTransaction = new Transaction({ ...req.body, audioMetadata });
+    const transactionData = JSON.parse(req.body.transactionData);
+    const newTransaction = new Transaction({
+      ...transactionData,
+      audioMetadata,
+    });
     const savedTransaction = await newTransaction.save();
     res.status(201).json(savedTransaction);
   } catch (error) {

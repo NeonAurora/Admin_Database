@@ -2,8 +2,14 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5001/api/transactions";
 
-const addTransaction = async (transactionData) => {
-  return axios.post(`${API_URL}/add`, transactionData);
+const addTransaction = async (formData) => {
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  };
+
+  return axios.post(`${API_URL}/add`, formData, config);
 };
 
 const searchTransaction = async (transactionId) => {

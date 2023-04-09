@@ -11,6 +11,7 @@ const TransactionsInsertion = () => {
   const [products, setProducts] = useState([]);
   const [transactionData, setTransactionData] = useState({});
   const theme = useTheme();
+  const [audioFile, setAudioFile] = useState(null);
 
   const updateTransactionData = () => {
     setTransactionData({
@@ -36,10 +37,16 @@ const TransactionsInsertion = () => {
       products,
     };
     console.log("Submitting transaction data:", currentTransactionData);
+
+    // Create a FormData object and append the audio file
+    const formData = new FormData();
+    formData.append("audio", audioFile);
+
+    // Append the transaction data as a JSON string
+    formData.append("transactionData", JSON.stringify(currentTransactionData));
+
     try {
-      const response = await transactionService.addTransaction(
-        currentTransactionData
-      );
+      const response = await transactionService.addTransaction(formData);
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -161,6 +168,14 @@ const TransactionsInsertion = () => {
             Add Product
           </Button>
           {/* ... other buttons */}
+        </Box>
+        <Box>
+          <Typography variant="h6">Audio File:</Typography>
+          <input
+            type="file"
+            accept="audio/*"
+            onChange={(e) => setAudioFile(e.target.files[0])}
+          />
         </Box>
 
         {/* ... other form elements */}

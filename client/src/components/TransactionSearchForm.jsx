@@ -1,7 +1,8 @@
 import React from "react";
 
 const TransactionSearchForm = ({ transactionData }) => {
-  const { _id, userId, cost, products, createdAt, __v } = transactionData;
+  const { _id, userId, cost, products, createdAt, __v, audioUrl } =
+    transactionData;
 
   return (
     <div>
@@ -19,12 +20,14 @@ const TransactionSearchForm = ({ transactionData }) => {
         <input type="text" value={cost} readOnly />
       </label>
       <h3>Products:</h3>
-      {products.map((product, index) => (
-        <label key={index}>
-          Product {index + 1}:
-          <input type="text" value={product} readOnly />
-        </label>
-      ))}
+      {products &&
+        products.map((product, index) => (
+          <label key={index}>
+            Product {index + 1}:
+            <input type="text" value={product.productID} readOnly />
+          </label>
+        ))}
+
       <label>
         Created At:
         <input type="text" value={createdAt} readOnly />
@@ -33,6 +36,7 @@ const TransactionSearchForm = ({ transactionData }) => {
         __v:
         <input type="text" value={__v} readOnly />
       </label>
+      {audioUrl && <audio controls src={audioUrl} />}
     </div>
   );
 };

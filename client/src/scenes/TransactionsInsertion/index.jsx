@@ -4,6 +4,7 @@ import { Box, TextField, Typography, Button } from "@mui/material";
 import { useTheme } from "@mui/system";
 import ProductEntry from "components/ProductEntry";
 import { v4 as uuidv4 } from "uuid";
+import * as mm from "music-metadata-browser";
 
 const TransactionsInsertion = () => {
   const [userId, setuserId] = useState("");
@@ -12,6 +13,39 @@ const TransactionsInsertion = () => {
   const [transactionData, setTransactionData] = useState({});
   const theme = useTheme();
   const [audioFile, setAudioFile] = useState(null);
+  const [audioMetadata, setAudioMetadata] = useState({});
+
+  const extractMetadata = async (audioFile) => {
+    try {
+      const metadata = await mm.parseBlob(audioFile);
+      const { format } = metadata;
+      return {
+        title: metadata.common.title || audioFile.name,
+        duration: format.duration,
+        format: format.dataformat,
+        bitrate: format.bitrate,
+        sampleRate: format.sampleRate,
+        channels: format.numberOfChannels,
+        fileSize: audioFile.size,
+      };
+    } catch (error) {
+      console.error("Error extracting metadata:", error);
+      return null;
+    }
+  };
+
+  const handleAudioFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const metadata = await extractMetadata(file);
+      if (metadata) {
+        setAudioMetadata(metadata);
+        setAudioFile(file);
+      } else {
+        alert("Error extracting metadata from the audio file");
+      }
+    }
+  };
 
   const updateTransactionData = () => {
     setTransactionData({
@@ -36,6 +70,7 @@ const TransactionsInsertion = () => {
       cost: cost.toString(),
       products,
     };
+
     console.log("Submitting transaction data:", currentTransactionData);
 
     // Create a FormData object and append the audio file
@@ -43,7 +78,10 @@ const TransactionsInsertion = () => {
     formData.append("audio", audioFile);
 
     // Append the transaction data as a JSON string
-    formData.append("transactionData", JSON.stringify(currentTransactionData));
+    formData.append(
+      "transactionData",
+      JSON.stringify({ ...currentTransactionData, ...audioMetadata })
+    );
 
     try {
       const response = await transactionService.addTransaction(formData);

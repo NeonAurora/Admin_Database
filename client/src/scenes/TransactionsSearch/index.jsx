@@ -12,10 +12,9 @@ const TransactionSearch = () => {
     setError("");
 
     try {
-      const response = await transactionService.searchTransaction(
-        transactionId
-      );
-      setTransactionData(response.data);
+      const { transactionData, audioUrl } =
+        await transactionService.searchTransaction(transactionId);
+      setTransactionData({ ...transactionData, audioUrl });
     } catch (error) {
       setTransactionData(null);
       setError("Error: Transaction not found");

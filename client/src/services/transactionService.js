@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5001/api/transactions";
+const API_URL = process.env.REACT_APP_BASE_URL + "/api/transactions";
+
 
 const addTransaction = async (formData) => {
   const config = {
@@ -13,7 +14,10 @@ const addTransaction = async (formData) => {
 };
 
 const searchTransaction = async (transactionId) => {
-  return axios.get(`${API_URL}/search/${transactionId}`);
+  const response = await axios.get(`${API_URL}/search/${transactionId}`);
+  const transactionData = response.data;
+  const audioUrl = transactionData.audioMetadata.fileUrl;
+  return { transactionData, audioUrl };
 };
 
 const deleteTransaction = async (transactionId) => {

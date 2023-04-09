@@ -6,8 +6,6 @@ const apiRoutes = require("./routes/overallStatsRoutes");
 const connectDB = require("./config/database");
 const transactionRoutes = require("./routes/transactionRoutes");
 
-// Other code...
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 connectDB(); // connect to mongodb atlas
@@ -17,6 +15,7 @@ app.use(cors());
 
 app.use("/api/overallStats", apiRoutes);
 app.use("/api/transactions", transactionRoutes);
+app.use("/uploads", express.static("uploads")); // Add this line to serve audio files
 
 // Start the server
 app.listen(PORT, () => {

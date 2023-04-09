@@ -1,10 +1,33 @@
 const express = require("express");
 const router = express.Router();
 const Transaction = require("../models/Transaction");
+const multer = require("multer");
 
-router.post("/add", async (req, res) => {
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+
+const upload = multer({ storage });
+
+router.post("/add", upload.single("audio"), async (req, res) => {
   try {
-    const newTransaction = new Transaction(req.body);
+    const audioMetadata = {
+      title: req.body.title,
+      duration: req.body.duration,
+      format: req.file.mimetype,
+      bitrate: req.body.bitrate,
+      sampleRate: req.body.sampleRate,
+      channels: req.body.channels,
+      fileSize: req.file.size,
+      fileUrl: req.file.path,
+    };
+
+    const newTransaction = new Transaction({ ...req.body, audioMetadata });
     const savedTransaction = await newTransaction.save();
     res.status(201).json(savedTransaction);
   } catch (error) {

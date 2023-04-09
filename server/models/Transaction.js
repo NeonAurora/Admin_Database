@@ -10,6 +10,16 @@ const TransactionSchema = new mongoose.Schema(
         productID: String,
       },
     ],
+    audioMetadata: {
+      title: String,
+      duration: Number,
+      format: String,
+      bitrate: Number,
+      sampleRate: Number,
+      channels: Number,
+      fileSize: Number,
+      fileUrl: String,
+    },
   },
   { timestamps: true }
 );

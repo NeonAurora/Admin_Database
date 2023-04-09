@@ -45,7 +45,17 @@ router.get("/search/:id", async (req, res) => {
     if (!transaction) {
       return res.status(404).json({ message: "Transaction not found" });
     }
-    res.json(transaction);
+
+    const { audioMetadata } = transaction;
+    if (!audioMetadata) {
+      return res.status(404).json({ message: "Audio not found" });
+    }
+
+    const audioUrl = `http://${
+      req.headers.host
+    }/${audioMetadata.fileUrl.replace(/\\/g, "/")}`;
+
+    res.json({ transactionData: transaction, audioUrl });
   } catch (error) {
     res.status(500).json({ message: "Error: " + error });
   }

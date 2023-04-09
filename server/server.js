@@ -5,8 +5,10 @@ const cors = require("cors");
 const apiRoutes = require("./routes/overallStatsRoutes");
 const connectDB = require("./config/database");
 const transactionRoutes = require("./routes/transactionRoutes");
+const morgan = require("morgan");
 
 const app = express();
+app.use(morgan("tiny"));
 const PORT = process.env.PORT || 5000;
 connectDB(); // connect to mongodb atlas
 

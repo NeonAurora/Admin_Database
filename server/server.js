@@ -3,8 +3,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const apiRoutes = require("./routes/overallStatsRoutes");
-const connectDB = require("./config/database");
 const transactionRoutes = require("./routes/transactionRoutes");
+const userRoutes = require("./routes/userRoutes");
+const connectDB = require("./config/database");
+
 const morgan = require("morgan");
 
 const app = express();
@@ -17,6 +19,7 @@ app.use(cors());
 
 app.use("/api/overallStats", apiRoutes);
 app.use("/api/transactions", transactionRoutes);
+app.use("api/users", userRoutes);
 app.use("/uploads", express.static("uploads")); // Add this line to serve audio files
 
 // Start the server

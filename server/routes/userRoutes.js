@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const OverallStat = require("../models/OverallState");
+const User = require("../models/User");
 
-// Add a new overall stat
 router.post("/add", async (req, res) => {
   try {
-    const newStat = new OverallStat(req.body);
+    const newStat = new UserStat(req.body);
     const savedStat = await newStat.save();
     res.status(201).json(savedStat);
   } catch (error) {
@@ -15,7 +14,7 @@ router.post("/add", async (req, res) => {
 
 router.get("/search/:id", async (req, res) => {
   try {
-    const stat = await OverallStat.findById(req.params.id);
+    const stat = await User.findById(req.params.id);
     if (!stat) {
       return res.status(404).json({ message: "Stat not found" });
     }
@@ -27,7 +26,7 @@ router.get("/search/:id", async (req, res) => {
 
 router.delete("/delete/:_id", async (req, res) => {
   try {
-    const data = await OverallStat.findByIdAndDelete(req.params._id);
+    const data = await User.findByIdAndDelete(req.params._id);
 
     if (!data) {
       return res.status(404).json({ message: "Data not found" });
@@ -37,24 +36,6 @@ router.delete("/delete/:_id", async (req, res) => {
   } catch (error) {
     console.error("Delete Error:", error);
     res.status(500).json({ message: "Server error", error: error.message });
-  }
-});
-
-router.put("/update/:id", async (req, res) => {
-  try {
-    const updatedStat = await OverallStat.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
-    );
-
-    if (!updatedStat) {
-      return res.status(404).json({ message: "Stat not found" });
-    }
-
-    res.json(updatedStat);
-  } catch (error) {
-    res.status(400).json({ message: "Error: " + error });
   }
 });
 

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Route, Routes, Outlet } from "react-router-dom";
 import TransactionsInsertion from "scenes/TransactionsInsertion";
 import TransactionsSearch from "scenes/TransactionsSearch";
-import TransactionsDelete from "scenes/TransactionsDelete";
+import TransactionsDelete from "scenes/TransactionsDeletion";
 
 function Transactions() {
   return (

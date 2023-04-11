@@ -76,4 +76,47 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
+router.put("/update/:id", async (req, res) => {
+  try {
+    const transactionData = req.body;
+
+    const updatedTransaction = await Transaction.findByIdAndUpdate(
+      req.params.id,
+      transactionData,
+      { new: true }
+    );
+
+    if (!updatedTransaction) {
+      return res.status(404).json({ message: "Transaction not found" });
+    }
+
+    res.json({ message: "Transaction updated successfully", data: updatedTransaction });
+  } catch (error) {
+    console.error("Update Error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
+router.put("/update-audio/:id", upload.single("newAudio"), async (req, res) => {
+  try {
+    console.log('Received transactionId:', req.params.id, 'file:', req.file);
+    const transaction = await Transaction.findById(req.params.id);
+    if (!transaction) {
+      return res.status(404).json({ message: "Transaction not found" });
+    }
+
+    if (req.file) {
+      transaction.audioMetadata.fileUrl = req.file.path;
+      await transaction.save();
+      console.log("Audio file updated successfully for transactionId:", req.params.id);
+      res.status(200).json({ message: "Audio file updated successfully" });
+    } else {
+      res.status(400).json({ message: "No audio file provided" });
+    }
+  } catch (error) {
+    console.error("Update Audio Error:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
 module.exports = router;

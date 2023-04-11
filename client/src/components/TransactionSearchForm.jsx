@@ -1,6 +1,6 @@
 import React from "react";
 
-const TransactionSearchForm = ({ transactionData }) => {
+const TransactionSearchForm = ({ transactionData, onEditClick }) => {
   const { _id, userId, cost, products, createdAt, __v, audioUrl } =
     transactionData;
 
@@ -37,6 +37,10 @@ const TransactionSearchForm = ({ transactionData }) => {
         <input type="text" value={__v} readOnly />
       </label>
       {audioUrl && <audio controls src={audioUrl} />}
+
+      <button type="button" onClick={onEditClick}>
+        Edit
+      </button>
     </div>
   );
 };

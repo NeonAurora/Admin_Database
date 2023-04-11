@@ -4,7 +4,7 @@ import { Box, TextField, Typography, Button } from "@mui/material";
 import { useTheme } from "@mui/system";
 import ProductEntry from "components/ProductEntry";
 import { v4 as uuidv4 } from "uuid";
-import * as mm from "music-metadata-browser";
+// import * as mm from "music-metadata-browser"; 
 
 const TransactionsInsertion = () => {
   const [userId, setuserId] = useState("");
@@ -14,46 +14,6 @@ const TransactionsInsertion = () => {
   const theme = useTheme();
   const [audioFile, setAudioFile] = useState(null);
   const [audioMetadata, setAudioMetadata] = useState({});
-
-  const extractMetadata = async (audioFile) => {
-    try {
-      const metadata = await mm.parseBlob(audioFile);
-      const { format } = metadata;
-      return {
-        title: metadata.common.title || audioFile.name,
-        duration: format.duration,
-        format: format.dataformat,
-        bitrate: format.bitrate,
-        sampleRate: format.sampleRate,
-        channels: format.numberOfChannels,
-        fileSize: audioFile.size,
-      };
-    } catch (error) {
-      console.error("Error extracting metadata:", error);
-      return null;
-    }
-  };
-
-  const handleAudioFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const metadata = await extractMetadata(file);
-      if (metadata) {
-        setAudioMetadata(metadata);
-        setAudioFile(file);
-      } else {
-        alert("Error extracting metadata from the audio file");
-      }
-    }
-  };
-
-  const updateTransactionData = () => {
-    setTransactionData({
-      userId,
-      cost,
-      products,
-    });
-  };
 
   useEffect(() => {
     setTransactionData({

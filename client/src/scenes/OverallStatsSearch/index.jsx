@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import DisplayForm from "components/DisplayForm";
-import EditForm from "components/EditForm";
+import DisplayForm from "components/OverallStatSearchFrom";
+import EditForm from "components/OverallStatEditForm";
 import overallStatService from "services/overallStatService";
 
 const OverallStatsSearch = () => {

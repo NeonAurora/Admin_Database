@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DisplayForm from "components/DisplayForm";
+import DisplayForm from "components/OverallStatSearchFrom";
 
 const API_URL = "http://localhost:5001/api/overallStats/search";
 

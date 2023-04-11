@@ -24,6 +24,7 @@ const deleteTransaction = async (transactionId) => {
   return axios.delete(`${API_URL}/delete/${transactionId}`);
 };
 
+
 export default {
   addTransaction,
   searchTransaction,

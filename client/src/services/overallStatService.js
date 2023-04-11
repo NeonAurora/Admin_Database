@@ -14,8 +14,14 @@ const deleteOverallStat = async (documentId) => {
   return axios.delete(`${API_URL}/delete/${documentId}`);
 };
 
+const updateOverallStat = async (documentId, updatedData) => {
+  return axios.put(`${API_URL}/update/${documentId}`, updatedData);
+};
+
+
 export default {
   addOverallStat,
   searchOverallStat,
   deleteOverallStat,
+  updateOverallStat
 };

@@ -6,6 +6,7 @@ const Sidebar = () => {
   const menuItems = [
     { label: "Overall Stats", path: "/overallStats" },
     { label: "Transactions", path: "/transactions" },
+    { label: "Users", path: "/users" },
     // Add more pages here
   ];
 

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import customTheme from "theme";
 import OverallStatPage from "scenes/OverallStats";
 import TransactionPage from "scenes/Transactions";
+import UsersPage from "scenes/Users";
 import Layout from "scenes/Layout";
 import SubpageContext from "components/SubpageContext";
 
@@ -22,6 +23,7 @@ function App() {
                 <Route index element={<OverallStatPage />} />
                 <Route path="/overallStats/*" element={<OverallStatPage />} />
                 <Route path="/transactions/*" element={<TransactionPage />} />
+                <Route path="/users/*" element={<UsersPage />} />
               </Route>
               {/* Add your other routes here */}
             </Routes>

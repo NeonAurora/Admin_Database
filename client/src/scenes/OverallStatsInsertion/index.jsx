@@ -16,11 +16,7 @@ const OverallStatsInsertion = () => {
       { category: "", sales: 0 },
     ].map((category, index) => ({ ...category, id: index }))
   );
-
-  const totalCustomersRef = useRef();
-  const yearlySalesTotalRef = useRef();
-  const yearlyTotalSoldUnitsRef = useRef();
-  const yearRef = useRef();
+  
   const theme = useTheme();
 
   const [totalCustomers, setTotalCustomers] = useState("");

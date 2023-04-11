@@ -19,7 +19,7 @@ app.use(cors());
 
 app.use("/api/overallStats", apiRoutes);
 app.use("/api/transactions", transactionRoutes);
-app.use("api/users", userRoutes);
+app.use("/api/users", userRoutes);
 app.use("/uploads", express.static("uploads")); // Add this line to serve audio files
 
 // Start the server
